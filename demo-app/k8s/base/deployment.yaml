@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ccno-demo
+spec:
+  replicas: 1
+
+  selector:
+    matchLabels:
+      app: ccno-demo
+
+  template:
+    metadata:
+      labels:
+        app: ccno-demo
+
+    spec:
+      containers:
+        - name: ccno-demo
+          image: ccno-demo
+
+          ports:
+            - containerPort: 80
+
+          resources:
+            requests:
+              cpu: "50m"
+              memory: "32Mi"
+
+            limits:
+              cpu: "200m"
+              memory: "128Mi"
