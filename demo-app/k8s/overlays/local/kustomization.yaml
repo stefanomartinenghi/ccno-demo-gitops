@@ -11,4 +11,4 @@ images:
 
 replicas:
   - name: ccno-demo
-    count: 3
+    count: 2
