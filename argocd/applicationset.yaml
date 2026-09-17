@@ -1,0 +1,43 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+
+metadata:
+  name: ccno-demo-environments
+  namespace: argocd
+
+spec:
+  generators:
+    - list:
+        elements:
+          - env: local-test
+            namespace: ccno-test
+
+          - env: local-qual
+            namespace: ccno-qual
+
+          - env: local-prod
+            namespace: ccno-prod
+
+  template:
+    metadata:
+      name: 'ccno-demo-{{env}}'
+
+    spec:
+      project: default
+
+      source:
+        repoURL: https://github.com/stefanomartinenghi/ccno-demo-gitops.git
+        targetRevision: main
+        path: 'demo-app/k8s/overlays/{{env}}'
+
+      destination:
+        server: https://kubernetes.default.svc
+        namespace: '{{namespace}}'
+
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
+
+        syncOptions:
+          - CreateNamespace=true
