@@ -6,8 +6,8 @@ resources:
 
 images:
   - name: ccno-demo
-    newName: localhost:5001/nginx
-    newTag: test
+    newName: localhost:5001/ccno-demo
+    newTag: initial
 
 replicas:
   - name: ccno-demo
